@@ -1,9 +1,8 @@
 defmodule Inmana do
-  @moduledoc """
-  Inmana keeps the contexts that define your domain
-  and business logic.
+  # This is a exemple of the facade design pattern, its just better to just centralize
+  # all the complex methods in one file with names that makes more sense, isn't?
 
-  Contexts are also responsible for managing your data, regardless
-  if it comes from the database, an external API or others.
-  """
+  alias Inmana.Restaurants.Create
+
+  defdelegate create_restaurant(params), to: Create, as: :call
 end
