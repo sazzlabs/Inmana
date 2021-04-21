@@ -8,8 +8,17 @@ defmodule InmanaWeb.Router do
   scope "/api", InmanaWeb do
     pipe_through :api
 
+    # Get Routes
+
     get "/", WelcomeController, :index
+
+    # Create Routes
+
     post "/restaurants", RestaurantsController, :create
+
+    # Resources Routes
+
+    resources "/supplies", SuppliesController, only: [:create, :show]
   end
 
   # Enables LiveDashboard only for development
@@ -26,5 +35,9 @@ defmodule InmanaWeb.Router do
       pipe_through [:fetch_session, :protect_from_forgery]
       live_dashboard "/dashboard", metrics: InmanaWeb.Telemetry
     end
+  end
+
+  if Mix.env() == :dev do
+    forward "/sent_emails", Bamboo.SentEmailViewerPlug
   end
 end
