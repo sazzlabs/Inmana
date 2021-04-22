@@ -5,6 +5,7 @@ defmodule Inmana.Application do
 
   use Application
 
+  # Our Supervisor
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
@@ -14,9 +15,9 @@ defmodule Inmana.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Inmana.PubSub},
       # Start the Endpoint (http/https)
-      InmanaWeb.Endpoint
-      # Start a worker by calling: Inmana.Worker.start_link(arg)
-      # {Inmana.Worker, arg}
+      InmanaWeb.Endpoint,
+      # Start the Scheduler GenServer
+      Inmana.Supplies.Scheduler
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
